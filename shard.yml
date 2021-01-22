@@ -1,0 +1,9 @@
+name: tap
+version: 0.0.1
+authors:
+  - sa-0001
+description: |
+  test framework with TAP-formatted output
+license: MIT
+
+crystal: 0.35.1
