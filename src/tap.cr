@@ -51,7 +51,11 @@ class Tap
 		# print title fo (sub)test
 		log_indent "# Subtest: #{@title}"
 		
-		yield self
+		begin
+			yield self
+		rescue ex
+			fail ex
+		end
 		
 		stop = Time.utc
 		dura = stop - @start
@@ -115,6 +119,15 @@ class Tap
 		@count += 1
 		@count_fail += 1
 		log_indent "    not ok #{@count.to_s} - #{message}"
+	end
+	private def fail (ex : Exception)
+		fail ex.message
+		log_indent "      ---"
+		log_indent "      stack: >"
+		ex.backtrace.each do |line|
+			log_indent "        #{line}"
+		end
+		log_indent "      ..."
 	end
 	
 	##--------------------------------------------------------------------------
